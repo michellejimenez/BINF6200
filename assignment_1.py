@@ -1,0 +1,144 @@
+# BINF6200 Assignment 1
+# Michelle Jimenez
+
+mrna = """
+GCGGCCCTGCGGTCCCCGGGCGGCAGCAGCGGCCGCCTAGTCCCGCGCCTCTCCGGGCTTACAGCCCCGC
+GGTCCCGCCGCCCCGGGGCCGCCACCTCTCGGGGCTCCCCCCAGTCCCCGCGCGCGCAAGATGGCTGACC
+CGGCTGCGGGGCCGCCGCCGAGCGAGGGCGAGGAGAGCACGGTGCGCTTCGCCCGCAAAGGCGCCCTCCG
+GCAGAAGAACGTGCACGAGGTGAAGAACCACAAATTCACCGCCCGCTTCTTCAAGCAGCCCACCTTCTGC
+AGCCACTGCACCGACTTCATTTGGGGCTTAGGTTTGCAGGGATTCCAGAGTCAGGTCTGCTGCTTTGTTG
+TACACAAGCGCTGCCATGAATTCGTCACGTTCTCCTGCCCTGGTGCAGACAAGGGCCCGGCCTCTGATGA
+CCCACGGAGCAAACACAAGTTTAAGATCCACACCTACTCCAGCCCTACCTTCTGTGACCACTGTGGATCA
+CTGCTGTATGGGCTCATCCACCAGGGGATGAAATGCGACACCTGTATGATGAATGTCCACAAGCGCTGCG
+TGATGAACGTCCCCAGCCTCTGTGGCACCGACCACACAGAACGCCGTGGCCGCATCTACATCCAGGCCCA
+CATCGACAGGGAGGTCCTCATCGTTGTTGTAAGAGATGCTAAAAATCTGGTACCTATGGACCCCAACGGC
+TTGTCAGATCCCTACGTAAAACTGAAACTGATCCCTGATCCCAAAAGTGAGAGCAAGCAGAAGACCAAGA
+CTATCAAATGCTCCCTCAACCCGGAGTGGAACGAAACCTTCAGATTTCAGCTGAAGGAATCAGACAAAGA
+CAGAAGACTGTCCGTAGAGATCTGGGATTGGGACCTGACCAGCAGGAATGACTTCATGGGATCTCTGTCG
+TTTGGGATTTCAGAACTACAGAAAGCCGGAGTGGATGGCTGGTTCAAGTTACTAAGCCAGGAAGAAGGCG
+AGTACTTTAATGTGCCGGTGCCGCCGGAAGGAAGCGAGGGCAATGAAGAGCTGCGGCAGAAGTTTGAGAG
+AGCCAAGATTGGCCAAGGTACCAAGGCTCCAGAAGAAAAGACAGCGAACACTATATCCAAATTTGACAAC
+AATGGCAACAGGGACCGGATGAAACTGACCGATTTTAACTTCCTGATGGTGCTGGGGAAAGGCAGCTTTG
+GCAAGGTCATGCTCTCAGAGCGGAAGGGTACAGATGAACTCTATGCCGTGAAGATCCTGAAGAAAGATGT
+GGTGATCCAAGATGACGATGTGGAGTGCACAATGGTGGAGAAGAGGGTGCTGGCCCTGCCTGGGAAGCCC
+CCATTCCTGACTCAGCTCCATTCCTGCTTCCAGACCATGGACCGCCTCTACTTTGTGATGGAGTATGTGA
+ACGGGGGCGACCTCATGTACCACATCCAACAAGTTGGCCGTTTCAAGGAGCCCCATGCTGTATTTTACGC
+TGCAGAGATTGCCATCGGTCTTTTCTTCTTGCAGAGCAAGGGCATCATTTACCGTGACCTGAAACTTGAC
+AACGTGATGCTGGATTCCGAGGGGCACATCAAAATCGCTGACTTTGGCATGTGTAAAGAGAATATCTGGG
+ATGGGGTGACAACCAAGACATTCTGTGGCACTCCAGACTACATTGCCCCAGAGATCATTGCTTATCAGCC
+CTACGGGAAGTCTGTGGACTGGTGGGCGTTTGGAGTCCTGCTGTATGAAATGTTGGCTGGCCAGGCACCT
+TTTGAAGGGGAGGATGAGGATGAACTCTTCCAGTCAATCATGGAGCACAACGTGGCGTATCCCAAGTCCA
+TGTCTAAGGAAGCTGTGGCAATCTGCAAAGGGCTAATGACCAAACACCCAGGCAAGCGCCTGGGTTGTGG
+GCCTGAAGGGGAACGAGACATTAAGGAGCATGCATTTTTCCGGTATATCGACTGGGAGAAACTCGAACGC
+AAGGAGATTCAGCCACCTTATAAACCAAAAGCTAGAGACAAGCGAGACACCTCCAACTTCGACAAAGAGT
+TCACCAGGCAGCCTGTGGAACTGACTCCCACTGACAAACTCTTCATCATGAACTTGGACCAAAATGAATT
+TGCTGGCTTCTCGTATACTAACCCAGAGTTTGTCATTAATGTGTAGGTGAATGCAGATTCCATCGCTGAG
+CCTGTGTGTAAGGCTGCAGGCTGAATGTCTATTATCAATTCCAGTCTTCCAGGATTCATGGTGCCTCTGT
+TGGCATCCGTCATGTGGAGAGCTTGTCTTAGAGGGCTTTTCTTTGTATGTATAGCTTGCTAGTTTGTTTT
+CTACATTTCAAAATGTTTAGTTTAGAATAAGTGCATTGCCCACTGATAGAGGTACAATTTTCCAGACTTC
+CAGAAACTCATCCAATGAACCAACAGTGTCAAAACTTAACTGTGTCCGATACCAAAATGCTTCAGTATTT
+GTAATTTTTAAAGTCAGATGCTGATGTTCCTGGTCAAAGTTTTTACAGTTACTCTCGAATATCTCCTTTG
+AATGCTACCTAAGCATGACCGGTATTTTTAAAAGTTGTGAGTAAGCTTTGCAGTTACTGTGAACTCTTGT
+CTCTTGGAGGAAACTTTTTGTTTAAGAATTGGTATGATTAAACTGAATTCATATATGCAAAAAAAAAAAA
+AAAAAA
+"""
+mrna = mrna.replace("\r", "").replace("\n", "")
+
+
+def codon_lookup(codon):
+    """Return the associating amino acid in the single-letter format.
+
+    Args:
+        codon (str): A 3-nt sequence.
+    """
+
+    codon_table = {
+        'TTT': "F", 'TTC': "F", 'TTA': "L", 'TTG': "L", 'CTT': "L", 'CTC': "L",
+        'CTA': "L", 'CTG': "L", 'ATT': "I", 'ATC': "I", 'ATA': "I", 'ATG': "M",
+        'GTT': "V", 'GTC': "V", 'GTA': "V", 'GTG': "V", 'TCT': "S", 'TCC': "S",
+        'TCA': "S", 'TCG': "S", 'CCT': "P", 'CCC': "P", 'CCA': "P", 'CCG': "P",
+        'ACT': "T", 'ACC': "T", 'ACA': "T", 'ACG': "T", 'GCT': "A", 'GCC': "A",
+        'GCA': "A", 'GCG': "A", 'TAT': "Y", 'TAC': "Y", 'TAA': "-", 'TAG': "-",
+        'CAT': "H", 'CAC': "H", 'CAA': "Q", 'CAG': "Q", 'AAT': "N", 'AAC': "N",
+        'AAA': "K", 'AAG': "K", 'GAT': "D", 'GAC': "D", 'GAA': "E", 'GAG': "E",
+        'TGT': "C", 'TGC': "C", 'TGA': "-", 'TGG': "W", 'CGT': "R", 'CGC': "R",
+        'CGA': "R", 'CGG': "R", 'AGT': "S", 'AGC': "S", 'AGA': "R", 'AGG': "R",
+        'GGT': "G", 'GGC': "G", 'GGA': "G", 'GGG': "G",
+    }
+    return codon_table.get(codon, "x")
+
+
+#size = len(motif)
+#  positions = []
+#  for i in range(len(sequence)):
+#    if sequence[i:i+size] == motif:
+#      positions.append(i + 1)
+#  return positions
+
+def translate_sequence(sequence, start):
+    """Translate a mRNA sequence starting at given index to a protein sequence.
+
+    Args:
+        sequence (str): mRNA sequence
+        start (int): Starting index
+
+    Returns:
+        str: translated protein sequence
+    """
+    protein = ""
+    for i in range(start, len(sequence), 3):
+        codon = sequence[i:i+3]
+        aa = codon_lookup(codon)
+        if not protein and aa != 'M':
+            continue
+        elif aa == "x" or aa == "-":
+            break
+        else:
+            protein += aa
+    return protein
+
+
+def read_frames(sequence):
+    """Translates the given mRNA sequence at 3 reading frames, prints the results and
+    returns the protein sequence that has the correct length
+
+    Args:
+        sequence (str): mRNA sequence
+
+    Returns:
+        str: a protein sequence with length 671 or None if no such sequence is found
+
+    """
+    CORRECT_LENGTH = 671
+    correct_sequence = None
+    for start in [0, 1, 2]:
+        protein = translate_sequence(sequence, start)
+        length = len(protein)
+        correct = length == CORRECT_LENGTH
+        if correct:
+            correct_sequence = protein
+
+        print("Reading frame: " + str(start))
+        print("Sequence: " + protein)
+        print("Length: " + str(length))
+        print("PKC Beta-1 sequence? " + ("yes" if correct else "no"))
+        print("----")
+
+    return correct_sequence
+
+
+def calculate_molecular_weight(sequence):
+    """Calculates the molecular weight of the given protein sequence.
+
+    Args:
+        sequence (str): a protein sequence
+
+    Returns:
+        float: Molecular weight in kilodaltons
+    """
+    return len(sequence) * 0.11
+
+
+protein_sequence = read_frames(mrna)
+weight = calculate_molecular_weight(protein_sequence)
+print("PKC Beta-1 molecular weight (kilodaltons): " + str(weight))
